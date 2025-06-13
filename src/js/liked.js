@@ -1,19 +1,27 @@
-import { products } from "./data.js";  
+const cartList = document.getElementById("cart-list");
+const template = document.getElementById("cart-template");
 
-const likedProducts = JSON.parse(localStorage.getItem('likedProducts')) || [];
-const likedList = document.getElementById('liked-list'); 
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-likedProducts.forEach(productId => {
-  const product = products.find(p => p.id === productId);
-  if (product) {
-    const div = document.createElement('div');
-    div.classList.add('liked-product');
-    div.innerHTML = `
-      <h3>${product.title}</h3>
-      <img src="${product.thumbnail}" alt="${product.title}" />
-      <p>${product.description}</p>
-      <p>Price: ${product.price} $</p>
-    `;
-    likedList.appendChild(div);
-  }
-});
+function renderCart() {
+  cartList.innerHTML = "";
+  cart.forEach((product) => {
+    const clone = template.content.cloneNode(true);
+
+    clone.querySelector(".card-img").src = product.thumbnail;
+    clone.querySelector(".card-title").textContent = product.title;
+    clone.querySelector(".price").textContent = `Narxi: ${product.price} so‘m`;
+    clone.querySelector(".description").textContent = product.description;
+
+    const removeBtn = clone.querySelector(".remove-btn");
+    removeBtn.addEventListener("click", () => {
+      cart = cart.filter((p) => p.id !== product.id);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    });
+
+    cartList.appendChild(clone);
+  });
+}
+
+renderCart();

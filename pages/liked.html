@@ -117,21 +117,7 @@
         </nav>
       </div>
     </footer>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-          const checked = localStorage.getItem('myCheckboxChecked');
-          if (checked === 'true') {
-            const cart = document.getElementById('cart-items');
-      
-            // Masalan, yangi div qo'shish (bu siz xohlagan HTML bo'lishi mumkin)
-            const newItem = document.createElement('div');
-            newItem.textContent = 'Yangi mahsulot qo\'shildi!';  // Bu o‘rniga istalgan HTML bo‘lishi mumkin
-            newItem.classList.add('p-2', 'bg-green-200', 'rounded', 'mt-2');
-      
-            cart.appendChild(newItem);
-          }
-        });
-      </script>
+    
       <script src="../src/js/app.js"></script>
 </body>
 </html>
